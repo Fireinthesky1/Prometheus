@@ -1,4 +1,4 @@
-// Test Bed for an implementation of binary search tree.
+// Test Bed for an implementation of trees
 
 /*
     TODO(James):
@@ -8,11 +8,6 @@
     4) [ ] implement useful N-ary tree (specific)
     5) [ ] implement abstract syntax tree (general)
     6) [ ] implement useful abstract syntax tree (specific)
-*/
-
-/*
-    TODO(James):
-    -Make these easier to initialize
 */
 
 #include <stdio.h>
@@ -63,16 +58,16 @@ void post_order_printout(tree_node* root)
 
 int main(void)
 {
-    tree_node one;
-    tree_node two;
-    tree_node three;
-    tree_node four;
-    tree_node five;
-    tree_node six;
-    tree_node seven;
-    tree_node eight;
-    tree_node nine;
-    tree_node ten;
+    tree_node one   = {0};
+    tree_node two   = {0};
+    tree_node three = {0};
+    tree_node four  = {0};
+    tree_node five  = {0};
+    tree_node six   = {0};
+    tree_node seven = {0};
+    tree_node eight = {0};
+    tree_node nine  = {0};
+    tree_node ten   = {0};
 
     one.val   = 1;
     two.val   = 2;
@@ -98,22 +93,6 @@ int main(void)
     four.right  = &nine;
 
     five.left   = &ten;
-    five.right  = NULL;
-
-    six.left    = NULL;
-    six.right   = NULL;
-
-    seven.left  = NULL;
-    seven.right = NULL;
-
-    eight.left  = NULL;
-    eight.right = NULL;
-
-    nine.left   = NULL;
-    nine.right  = NULL;
-
-    ten.left    = NULL;
-    ten.right   = NULL;
 
     printf("in order traversal========================================\n");
     in_order_printout(&one);
