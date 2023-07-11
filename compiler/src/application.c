@@ -4,67 +4,65 @@
 
 #include "data_structures.h"
 
-// Recursive Descent Parser for
-/*
+//Research keyword static
+static char lookahead;
 
-S -> +SS | -SS | a
-
-*/
-
-typedef char terminal;
-
-terminal lookahead;
-
-void match(terminal t)
+void match(char t)
 {
-
-    if( lookahead == t )
+    if(lookahead == t)
     {
-        // TODO(James): Make it so we read from a text file here
-        lookahead = getchar();
+        lookahead = fgetc();
     }
     else
     {
-        printf("Syntax Error");
+        printf("SYNTAX ERROR\n");
+        return -1;
     }
-
 }
 
-// TODO(James): Verify with the boys on this one
-void S()
+void term()
 {
+    int value_of_lookahead = (int)lookahead;
 
-    switch( lookahead )
+    if(value_of_lookahead >= 48 && <= 57)
     {
-        case '+':
-        {
-            match('+')
-            S();
-            S();
-        } break;
+        printf('lookahead');
+        match(lookahead);
+    }
+    else
+    {
+        printf("SYNTAX ERROR\n");
+        return -1;
+    }
+}
 
-        case '-':
+void expr()
+{
+    term();
+    while(1)
+    {
+        if(lookahead == '+')
+        {
+            match('+');
+            term();
+            printf('+');
+        }
+        else if(lookahead == '-')
         {
             match('-');
-            S();
-            S();
-        } break;
-
-        case 'a':
+            term();
+            printf('-');
+        }
+        else
         {
-            match('a');
-        } break;
-
-        default:
-        {
-            // TODO(James): Implement Logger
-            printf("Syntax Error");
+            return;
         }
     }
-
 }
 
 int main(void)
 {
+    expr();
+    printf('\n');
     return 0;
 }
