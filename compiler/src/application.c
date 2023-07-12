@@ -1,22 +1,23 @@
 // Test Bed for the compiler
 
 #include <stdio.h>
-
 #include "data_structures.h"
 
 //Research keyword static
 static char lookahead;
+// TODO(James): de-global this glob
+static FILE* file;
 
 void match(char t)
 {
     if(lookahead == t)
     {
-        lookahead = fgetc();
+        lookahead = fgetc(file);
     }
     else
     {
         printf("SYNTAX ERROR\n");
-        return -1;
+        return;
     }
 }
 
@@ -24,15 +25,15 @@ void term()
 {
     int value_of_lookahead = (int)lookahead;
 
-    if(value_of_lookahead >= 48 && <= 57)
+    if(value_of_lookahead >= 48 && value_of_lookahead <= 57)
     {
-        printf('lookahead');
+        printf("%c",lookahead);
         match(lookahead);
     }
     else
     {
         printf("SYNTAX ERROR\n");
-        return -1;
+        return;
     }
 }
 
@@ -45,13 +46,13 @@ void expr()
         {
             match('+');
             term();
-            printf('+');
+            printf("+");
         }
         else if(lookahead == '-')
         {
             match('-');
             term();
-            printf('-');
+            printf("-");
         }
         else
         {
@@ -62,7 +63,18 @@ void expr()
 
 int main(void)
 {
+    //TODO(James): Figure out how to use relative filepath
+    // CHANGE FILE PATH HERE
+    fopen_s(&file, "C:\\work\\Prometheus\\Resources\\test.txt","r");
+    if(file == NULL)
+    {
+        printf("FAILED TO OPEN FILE");
+        return -1;
+    }
+    lookahead = fgetc(file);
     expr();
-    printf('\n');
+    printf("\n");
+    fclose(file);
+    while(1);
     return 0;
 }
