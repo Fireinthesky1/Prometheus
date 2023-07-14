@@ -10,9 +10,11 @@
     6) [ ] implement useful abstract syntax tree (specific)
 */
 
+// Binary Tree
 typedef struct tree_node
 {
     int val;
     struct tree_node *left;
     struct tree_node *right;
 } tree_node;
+

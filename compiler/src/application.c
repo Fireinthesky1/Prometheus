@@ -2,8 +2,9 @@
 
 #include <stdio.h>
 #include "data_structures.h"
+#include "chtbl.h"
 
-//Research keyword static
+
 static char lookahead;
 // TODO(James): de-global this glob
 static FILE* file;
@@ -65,16 +66,17 @@ int main(void)
 {
     //TODO(James): Figure out how to use relative filepath
     // CHANGE FILE PATH HERE
-    fopen_s(&file, "C:\\work\\Prometheus\\Resources\\test.txt","r");
-    if(file == NULL)
-    {
-        printf("FAILED TO OPEN FILE");
-        return -1;
-    }
-    lookahead = fgetc(file);
-    expr();
-    printf("\n");
-    fclose(file);
-    while(1);
+    //fopen_s(&file, "C:\\work\\Prometheus\\Resources\\test.txt","r");
+    //if(file == NULL)
+    //{
+    //    printf("FAILED TO OPEN FILE");
+    //    return -1;
+    //}
+    //lookahead = fgetc(file);
+    //expr();
+    //printf("\n");
+    //fclose(file);
+    //while(1);
+    //return 0;
     return 0;
 }
