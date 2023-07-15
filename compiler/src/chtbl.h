@@ -1,4 +1,5 @@
 //Implementation of a chained hash table
+#pragma once
 
 #include <stdlib.h>
 

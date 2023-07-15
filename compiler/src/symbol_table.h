@@ -15,4 +15,6 @@ Hash Function
     1) P.J. Weinbergs' hash function
 */
 
+#pragma once
+
 #include "chtbl.h"
