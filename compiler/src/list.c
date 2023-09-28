@@ -2,6 +2,11 @@
 
 #include "list.h"
 
+/*
+TODO(James): Figure out how the destroy function should work
+             in order for this to be implemented as a symbol table
+*/
+
 // TODO(James): TEST
 void list_init(List* list, void (*destroy)(void* data))
 {
@@ -12,14 +17,15 @@ void list_init(List* list, void (*destroy)(void* data))
     list->tail = NULL;
 }
 
-// TODO(James): TEST
+// TODO(James):
+// Fix this so list_rem_node works
 void list_destroy(List* list)
 {
     void* data;
-    while(list_size(list) > 0)
+    while(list->size > 0)
     {
         // If remove next is successful and destroy function is defined
-        if(list_rem_next(list, list->head, (void**)&data) == 1 &&
+        if(list_rem_node(list, (void**)&data) == 1 &&
            list->destroy != NULL)
         {
             list->destroy(data);
@@ -44,7 +50,7 @@ int list_append(List* list, const void* data)
     new_node->data = (void*)data;
 
     // Deal with empty list
-    if(list_size(list) == 0)
+    if(list->size == 0)
     {
         list->head = new_node;
         list->tail = new_node;
@@ -63,28 +69,50 @@ int list_append(List* list, const void* data)
 
 // TODO(James): TEST
 // Returns 1 if successful; 0 otherwise.
-int list_rem_node(List* list, List_node* node, void** data);
+int list_rem_node(List* list, void** data)
+{
+    List_node* temp = list->head;
 
-// TODO(James): TEST
-int list_size(const List* list);
+    // If the node is our head
+    // TODO(James): What if head is the only node
+    if(list->head->data == *data)
+    {
+        list->head = list->head->next;
+        list->destroy(temp->data);
+        list->size -= 1;
+        if(list->head == NULL)
+        {
+            list->tail = NULL;
+        }
+        return 1;
+    }
 
-// TODO(James): TEST
-List_node* list_head(const List* list);
+    // Traverse to node or end of bucket
+    while(temp->next != NULL && temp->next->data != *data)
+    {
+        temp = temp->next;
+    }
 
-// TODO(James): TEST
-List_node* list_tail(const List* list);
+    // Are we at the Node
+    if(temp->next->data == *data)
+    {
+        List_node* node_to_delete = temp->next;
+        if(node_to_delete == list->tail)
+        {
+            list->tail = temp;
+        }
+        temp->next = temp->next->next;
+        list->destroy(node_to_delete->data);
+        list->size -= 1;
+        return 1;
+    }
 
-// TODO(James): TEST
-// Returns 1 if the node is the head of the list
-int list_is_head(const List_node* node);
+    // We didn't find the node
+    return 0;
+}
 
-// TODO(James): TEST
-// Returns 1 if the node is the tail of the list
-int list_is_tail(const List_node* node);
-
-// TODO(James): TEST
-// Returns the data of a node
-void* list_data(const List_node* node);
-
-// TODO(James): TEST
-List_node* list_next(const List_node* node);
+// TODO(James): Implement get for attributes types and actions
+void* list_data(const List_node* node)
+{
+    return node->data;
+}

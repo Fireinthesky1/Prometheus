@@ -64,19 +64,7 @@ void expr()
 
 int main(void)
 {
-    //TODO(James): Figure out how to use relative filepath
-    // CHANGE FILE PATH HERE
-    //fopen_s(&file, "C:\\work\\Prometheus\\Resources\\test.txt","r");
-    //if(file == NULL)
-    //{
-    //    printf("FAILED TO OPEN FILE");
-    //    return -1;
-    //}
-    //lookahead = fgetc(file);
-    //expr();
-    //printf("\n");
-    //fclose(file);
-    //while(1);
-    //return 0;
+    // TEST FOR LINKED LIST
+    
     return 0;
 }
